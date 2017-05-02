@@ -67,14 +67,14 @@ public class GuetzliCaller
         {
             gui.logMessage("Attempting to call Guetzli with parameters " + startInfo.Arguments + ".");
             gui.progressBar1.Visible = true;
-            using (Process exeProcess = Process.Start(startInfo))
-            {
 
-                gui.logMessage("Processing, please wait. This can take a very long time depending on your hardware, the input and the desired quality.");
 
-                Keks.GuetzliThread t = new Keks.GuetzliThread(exeProcess, gui, targetFilePath);
-                Thread oThread = new Thread(new ThreadStart(t.Run));
-            }
+            gui.logMessage("Processing, please wait. This can take a very long time depending on your hardware, the input and the desired quality.");
+
+            Keks.GuetzliThread t = new Keks.GuetzliThread(startInfo, gui, targetFilePath);
+            Thread oThread = new Thread(new ThreadStart(t.Run));
+            oThread.Start();
+
         }
         catch (Exception e)
         {

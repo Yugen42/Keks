@@ -76,9 +76,34 @@ namespace Keks
             UpdateTrackBarPositionText();
         }
 
+        delegate void SetTextCallback(string text);
+
         public void logMessage(string msg)
         {
-            log.AppendText("\r\n" + msg);
+            if (this.log.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(logMessage);
+                this.Invoke(d, new object[] { msg });
+            }
+            else
+            {
+                log.AppendText("\r\n" + msg);
+            }
+        }
+
+        delegate void ToggleBarCallback(bool toggle);
+
+        public void toggleBar(bool toggle)
+        {
+            if (this.progressBar1.InvokeRequired)
+            {
+                ToggleBarCallback d = new ToggleBarCallback(toggleBar);
+                this.Invoke(d, new object[] { toggle });
+            }
+            else
+            {
+                progressBar1.Visible = toggle;
+            }
         }
 
         public int GetSelectedQuality()
