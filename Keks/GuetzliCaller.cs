@@ -60,8 +60,8 @@ public class GuetzliCaller
         startInfo.Arguments
             = "--nomemlimit --quality "
             + gui.GetSelectedQuality() + " "
-            + filePath + " "
-            + targetFilePath;
+            + "'" + filePath + "' "
+            + "'" + targetFilePath + "'";
 
         try
         {
